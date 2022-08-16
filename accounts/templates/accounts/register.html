@@ -7,23 +7,31 @@
     <title>Document</title>
 </head>
 <body>
+    {% if messages %}
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    {% endif %}
     <form method = "post">
         {% csrf_token %}
         <legend>REGISTRATION FORM</legend>
         <label for = "firstname">First Name:</label>
-        <input type="text" name="firstname" id="firstname"><br>
+        <input type="text" name="first_name" id="firstname"><br>
         
         <label for = "lastname">Last Name:</label>
-        <input type="text" name="lastname id="lastname"><br>
+        <input type="text" name="last_name" id="lastname"><br>
+
+        <label for = "username">Username:</label>
+        <input type="text" name="username" id="username"><br>
 
         <label for = "email">Email Address</Address>:</label>
         <input type="email" name="email" id="email"><br>
 
-        <label for = "password1">Password:</label>
-        <input type="password" name="password1" id="password1"><br>
+        <label for = "password">Password:</label>
+        <input type="password" name="password" id="password"><br>
 
-        <label for = "password2">Confirm Password:</label>
-        <input type="password" name="password2" id="password2"><br>
+        <label for = "password1">Confirm Password:</label>
+        <input type="password" name="password1" id="password1"><br>
 
         <!--Submit button-->
         <input type="submit" value="Register">
