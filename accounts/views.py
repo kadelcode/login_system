@@ -1,10 +1,33 @@
+from urllib import request
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
+#login view
+def login_view():
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        #authenticating the user
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('dashboard')
+        else:
+            messages.info('You are not currently authenticated. Please register to get started!')
+            return render(request, 'accounts/register.html')
+
+    else:
+        return render(request, 'accounts/register.html')
+
+
 #dashboard
+@login_required
 def dashboard(request):
     return render(request,'accounts/dashboard.html')
 
@@ -25,6 +48,8 @@ def register(request):
             #create a user in the database
             user = User.objects.create_user(first_name = firstname, last_name = lastname, username = username, email = email, password = password)
             messages.info(request,'Account successfully created')
+            auth_user = authenticate(username = username, password = password)
+            login(request, auth_user)
             return redirect('dashboard')
     else:
         return render(request, 'accounts/register.html')
