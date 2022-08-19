@@ -21,7 +21,7 @@ def login_view(request):
             return redirect('dashboard')
         else:
             messages.info(request,'You are not currently authenticated. Please register to get started!')
-            return render(request, 'accounts/register.html')
+            return redirect('register')
 
     else:
         return render(request, 'accounts/login.html')
