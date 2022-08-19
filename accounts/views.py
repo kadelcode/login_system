@@ -1,3 +1,4 @@
+from email import message
 from urllib import request
 from django.shortcuts import render,redirect
 from django.contrib import messages
@@ -8,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 #login view
-def login_view():
+def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -19,11 +20,11 @@ def login_view():
             login(request,user)
             return redirect('dashboard')
         else:
-            messages.info('You are not currently authenticated. Please register to get started!')
+            messages.info(request,'You are not currently authenticated. Please register to get started!')
             return render(request, 'accounts/register.html')
 
     else:
-        return render(request, 'accounts/register.html')
+        return render(request, 'accounts/login.html')
 
 
 #dashboard
@@ -53,3 +54,9 @@ def register(request):
             return redirect('dashboard')
     else:
         return render(request, 'accounts/register.html')
+
+#logout view
+def logout_view(request):
+    logout(request)
+    messages.info(request, 'You have successfully logged out.')
+    return redirect('login')
