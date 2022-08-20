@@ -5,8 +5,27 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from .forms import NameForm
 
 # Create your views here.
+
+
+#My PerSonaL View
+def addiview(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request
+        form = NameForm(request.POST)
+        # check whether the form is valid
+        if form.is_valid():
+            messages.info(request, 'You have successfully submitted the form.')
+            return redirect('addiview')
+        else:
+            messages.error(request, 'Form not submitted!')
+            return redirect('addiview')
+    else:
+        form = NameForm()
+    return render(request,'accounts/additionalinfo.html',{'form':form})
+
 
 #login view
 def login_view(request):
