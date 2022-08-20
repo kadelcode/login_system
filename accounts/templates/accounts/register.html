@@ -1,47 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% if messages %}
-        {% for message in messages %}
-            {{message}}
-        {% endfor %}
-    {% endif %}
-    <form method = "post">
-        {% csrf_token %}
-        <legend>REGISTRATION FORM</legend>
-        <label for = "firstname">First Name:</label>
-        <input type="text" name="first_name" id="firstname"
-         {% if form.is_bound %} value="{{form.first_name.value}}" {% endif %}><br>
-        
-        <label for = "lastname">Last Name:</label>
-        <input type="text" name="last_name" id="lastname" 
-        {% if form.is_bound %} value="{{form.last_name.value}}" {% endif %}><br>
+{% extends 'base.html' %}
+    <!--Beginning of block title-->
+    {% block title %}
+        Register
+    {% endblock title %}
 
-        <label for = "username">Username:</label>
-        <input type="text" name="username" id="username" 
-        
-        {% if form.is_bound %} value="{{form.username.value}}" {% endif %}><br>
+    {% block content%}
+    <!--Beginning of block content-->
+        <form class="form-class" method = "post">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            <div class="alert alert-danger">
+                                <strong>{{message}}</strong>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-{{message.tags}}">
+                                <strong>{{message}}</strong>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% csrf_token %}
+            <legend>REGISTRATION FORM</legend>
+            <label for = "firstname" class="form-label">First Name:</label>
+            <input class="form-control" type="text" name="first_name" id="firstname"
+            {% if form.is_bound %} value="{{form.first_name.value}}" {% endif %}><br>
+            
+            <label class="form-label" for = "lastname">Last Name:</label>
+            <input class="form-control" type="text" name="last_name" id="lastname" 
+            {% if form.is_bound %} value="{{form.last_name.value}}" {% endif %}><br>
 
-        <label for = "email">Email Address</Address>:</label>
-        <input type="email" name="email" id="email" 
-        {% if form.is_bound %} value="{{form.email.value}}" {% endif %}><br>
+            <label class="form-label" for = "username">Username:</label>
+            <input class="form-control" type="text" name="username" id="username" 
+            
+            {% if form.is_bound %} value="{{form.username.value}}" {% endif %}><br>
 
-        <label for = "password">Password:</label>
-        <input type="password" name="password" id="password" 
-        {% if form.is_bound %} value="{{form.password.value}}" {% endif %}><br>
+            <label class="form-label" for = "email">Email Address</Address>:</label>
+            <input class="form-control" type="email" name="email" id="email" 
+            {% if form.is_bound %} value="{{form.email.value}}" {% endif %}><br>
 
-        <label for = "password1">Confirm Password:</label>
-        <input type="password" name="password1" id="password1" 
-        {% if form.is_bound %} value="{{form.password1.value}}" {% endif %}><br>
+            <label class="form-label" for = "password">Password:</label>
+            <input class="form-control" type="password" name="password" id="password" 
+            {% if form.is_bound %} value="{{form.password.value}}" {% endif %}><br>
 
-        <!--Submit button-->
-        <input type="submit" value="Register">
-    </form>
-</body>
-</html>
+            <label class="form-label" for = "password1">Confirm Password:</label>
+            <input class="form-control" type="password" name="password1" id="password1" 
+            {% if form.is_bound %} value="{{form.password1.value}}" {% endif %}><br>
+
+            <!--Submit button-->
+            <input class="btn btn-primary" type="submit" value="Register">
+        </form>
+    {% endblock content %}

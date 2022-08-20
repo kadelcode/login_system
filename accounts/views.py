@@ -20,7 +20,7 @@ def login_view(request):
             login(request,user)
             return redirect('dashboard')
         else:
-            messages.info(request,'You are not currently authenticated. Please register to get started!')
+            messages.error(request,'You are not currently authenticated. Please register to get started!')
             return redirect('register')
 
     else:

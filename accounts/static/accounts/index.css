@@ -2,4 +2,25 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: rgb(11, 4, 17);
+}
+
+.form-class {
+    margin: 10%;
+}
+
+/*for tablet*/
+@media only screen and (min-width:600px) {
+    .form-class {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+/*for desktop*/
+@media only screen and (min-width:1024px) {
+    .form-class {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
 }
