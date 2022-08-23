@@ -1,29 +1,44 @@
 from email import message
 from urllib import request
+from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .forms import NameForm
+from .forms import ContactForm
+from django.core.mail import send_mail
 
 # Create your views here.
 
 
 #My PerSonaL View
-def addiview(request):
+def contact_us(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request
-        form = NameForm(request.POST)
+        form = ContactForm(request.POST)
         # check whether the form is valid
+        # all the form validated data is stored in the cleaned_data attribute
         if form.is_valid():
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            cc_myself = form.cleaned_data['cc_myself']
+
+            recipients = ['ayodelekadiri.ak@gmail.com']
+            if cc_myself:
+                recipients.append(sender)
+                send_mail(subject, message, sender, recipients)
+
+                return HttpResponseRedirect('/thanks/')
+
             messages.info(request, 'You have successfully submitted the form.')
             return redirect('addiview')
         else:
             messages.error(request, 'Form not submitted!')
             return redirect('addiview')
     else:
-        form = NameForm()
+        form = ContactForm()
     return render(request,'accounts/additionalinfo.html',{'form':form})
 
 
