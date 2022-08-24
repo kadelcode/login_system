@@ -39,7 +39,7 @@ def contact_us(request):
             return redirect('addiview')
     else:
         form = ContactForm()
-    return render(request,'accounts/additionalinfo.html',{'form':form})
+    return render(request,'accounts/contact_us.html',{'form':form})
 
 
 #login view

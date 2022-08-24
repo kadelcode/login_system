@@ -16,7 +16,7 @@
         {% endfor %}
     {% endif %} -->
     {% csrf_token %}
-    <!--  Rendering forms manually-->
+     Rendering forms manually
     {{form.non_field_errors}}
     <div class="fieldWrapper">
         {{form.subject.errors}}
@@ -26,24 +26,24 @@
 
     <div class="fieldWrapper">
         {{form.message.errors}}
-        <label for="{{form.message.id_for_label}}">Message</label>
+        <label for="{{form.message.id_for_label}}">Message</label> <!--{{form.message.label_tag}}-->
         {{form.message}}
     </div>
 
     <div class="fieldWrapper">
         {{form.sender.errors}}
-        <label for="{{form.sender.id_for_label}}">Your email address:</label>
+        <label for="{{form.sender.id_for_label}}">Your email address:</label> <!--{{form.cc_sender.label_tag}}-->
         {{form.sender}}
     </div>
 
 
     <div class="fieldWrapper">
         {{form.subject.errors}}
-        <label for="{{form.cc_myself.id_for_label}}">CC yourself?</label>
+        <label for="{{form.cc_myself.id_for_label}}">CC yourself?</label> <!--{{form.cc_myself.label_tag}}-->
         {{form.cc_myself}}
     </div>
     
-    <input class="btn btn-primary" type="submit" value="Submit Info">
+    <input class="btn btn-primary" type="submit" value="Submit Infos">
 </form>
 
 {% endblock content %}
