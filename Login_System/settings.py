@@ -28,7 +28,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', default = 'django-insecure-c7m3a#tqnteq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
