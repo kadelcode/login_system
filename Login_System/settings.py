@@ -138,14 +138,14 @@ LOGOUT_REDIRECT_URL = 'register'
 #Email connection settings (for password)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_PORT = 587
+# EMAIL_PORT = 587
 
-EMAIL_USE_TLS = True
+# EMAIL_USE_TLS = True
 
-#accessing environment variables
-EMAIL_HOST_USER = config('EMAIL_USER')
+# #accessing environment variables
+# EMAIL_HOST_USER = config('EMAIL_USER')
 
-EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+# EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
