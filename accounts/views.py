@@ -11,6 +11,9 @@ from django.core.mail import send_mail
 
 # Create your views here.
 
+#homepage view
+def home(request):
+    return render(request, 'index.html')
 
 #My PerSonaL View
 def contact_us(request):
