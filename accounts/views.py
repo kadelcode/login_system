@@ -1,4 +1,5 @@
 from email import message
+from http.client import ImproperConnectionState
 from urllib import request
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
@@ -8,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .forms import ContactForm
 from django.core.mail import send_mail
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 
@@ -27,8 +29,11 @@ def contact_us(request):
             message = form.cleaned_data['message']
             sender = form.cleaned_data['sender']
             cc_myself = form.cleaned_data['cc_myself']
-
             recipients = ['ayodelekadiri.ak@gmail.com']
+
+            if subject == '':
+                raise ValidationError('This is must not be empty')
+                return redirect('contact')
             if cc_myself:
                 recipients.append(sender)
                 send_mail(subject, message, sender, recipients)
@@ -36,10 +41,10 @@ def contact_us(request):
                 return HttpResponseRedirect('/thanks/')
 
             messages.info(request, 'You have successfully submitted the form.')
-            return redirect('addiview')
+            return redirect('contact')
         else:
             messages.error(request, 'Form not submitted!')
-            return redirect('addiview')
+            return redirect('contact')
     else:
         form = ContactForm()
     return render(request,'accounts/contact_us.html',{'form':form})
